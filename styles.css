@@ -2126,3 +2126,23 @@ body::before {
 .service-card:hover {
   background: var(--bg);
 }
+
+/* Create a vignette layer over the body grid */
+body::before {
+    content: "" !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 0 !important; /* Sits right above the body grid, but under content */
+    pointer-events: none !important; /* Allows clicking through to links */
+    
+    /* This gradient acts like an inverted flashlight, forcing the edges to turn solid white */
+    background: radial-gradient(
+        circle at center, 
+        transparent 20%, 
+        rgba(255, 255, 255, 0.5) 60%, 
+        rgba(255, 255, 255, 1) 100%
+    ) !important;
+}
