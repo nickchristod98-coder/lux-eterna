@@ -1034,6 +1034,67 @@ main {
   outline: none;
 }
 
+/* Mobile: stack stills vertically for cleaner portfolio layout */
+@media (max-width: 768px) {
+  .work-stills-scroller {
+    overflow-x: hidden;
+    overflow-y: visible;
+    scroll-snap-type: none;
+    padding: 0;
+  }
+
+  .work-stills-track {
+    display: block;
+    width: 100%;
+    gap: 0;
+    padding-bottom: 0;
+  }
+
+  .work-stills-slide {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 1rem 0;
+    scroll-snap-align: none;
+    scroll-snap-stop: none;
+    height: auto;
+  }
+
+  .work-stills-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid var(--line-strong);
+  }
+
+  /* Show captions on mobile underneath each image for readability */
+  .work-stills-caption {
+    position: static !important;
+    display: block !important;
+    background: transparent !important;
+    color: var(--ink) !important;
+    padding: 0.5rem 0 0 0 !important;
+    font-size: 0.9rem !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto;
+    text-align: left;
+  }
+
+  /* Adjust fades so they don't obscure stacked layout */
+  .work-stills::before,
+  .work-stills::after {
+    display: none;
+  }
+
+  /* Reposition arrow buttons to sit inside edges on mobile */
+  .work-stills-btn--prev {
+    left: 0.5rem;
+  }
+  .work-stills-btn--next {
+    right: 0.5rem;
+  }
+}
+
 .work-stills-scroller:focus-visible {
   box-shadow: 0 0 0 2px var(--ink);
 }
