@@ -1883,12 +1883,13 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
   border-radius: 6px;
   background-image:
     linear-gradient(rgba(13,13,13,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(13,13,13,0.04) 1px, transparent 1px);
-  background-size: clamp(2rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem);
-  opacity: 0.06;
+    linear-gradient(90deg, rgba(13,13,13,0.04) 1px, transparent 1px) !important;
+  background-size: clamp(2rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem) !important;
+  background-repeat: repeat !important;
+  opacity: 0.06 !important;
   /* soft fade to edges */
-  mask-image: radial-gradient(closest-side, rgba(0,0,0,1), rgba(0,0,0,0));
-  -webkit-mask-image: radial-gradient(closest-side, rgba(0,0,0,1), rgba(0,0,0,0));
+  mask-image: radial-gradient(closest-side, rgba(0,0,0,1), rgba(0,0,0,0)) !important;
+  -webkit-mask-image: radial-gradient(closest-side, rgba(0,0,0,1), rgba(0,0,0,0)) !important;
 }
 
 /* Subtle grid behind the About hero title (page-about) */
@@ -1910,11 +1911,12 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
   border-radius: 10px;
   background-image:
     linear-gradient(rgba(13,13,13,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(13,13,13,0.035) 1px, transparent 1px);
-  background-size: clamp(3rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem);
-  opacity: 0.06;
-  mask-image: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
-  -webkit-mask-image: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    linear-gradient(90deg, rgba(13,13,13,0.035) 1px, transparent 1px) !important;
+  background-size: clamp(3rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem) !important;
+  background-repeat: repeat !important;
+  opacity: 0.06 !important;
+  mask-image: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%) !important;
+  -webkit-mask-image: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%) !important;
 }
 
 /* ===== Refined visual reset + subtle site grid + button fix ===== */
