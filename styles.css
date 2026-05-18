@@ -1788,15 +1788,16 @@ a.connect-value:hover {
 /* ===== Emergency reset: remove all site background layers and force single base color ===== */
 /* 1) Force html/body to single base color (white). Change hex below if you prefer a different base. */
 html, body {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
+  background-color: #ffffff;
+  min-height: 100vh;
+  margin: 0;
 }
 
 /* 2) Remove background images, gradients and background colors site-wide (except images and svgs). */
 *:not(img):not(svg):not(video):not(canvas) {
-  background: transparent !important;
-  background-image: none !important;
-  background-color: transparent !important;
+  background: transparent;
+  background-image: none;
+  background-color: transparent;
 }
 
 /* 3) Specifically neutralise known background/grid containers */
@@ -1814,10 +1815,10 @@ html, body {
 .contact,
 .service-card,
 .stills-modal-backdrop {
-  background: transparent !important;
-  background-image: none !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
+  background: transparent;
+  background-image: none;
+  background-color: transparent;
+  box-shadow: none;
 }
 
 /* 4) Remove any rigid block backgrounds that might create sharp bands */
@@ -1829,11 +1830,11 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
 
 /* 5) Reset inline pseudo-element backgrounds used for vignettes/gradients */
 *:before, *:after {
-  background: transparent !important;
-  background-image: none !important;
-  background-color: transparent !important;
-  mask-image: none !important;
-  -webkit-mask-image: none !important;
+  background: transparent;
+  background-image: none;
+  background-color: transparent;
+  mask-image: none;
+  -webkit-mask-image: none;
 }
 
 /* NOTE: This is aggressive — if you want to preserve some decorative gradients, tell me which ones and I'll whitelist them. */
@@ -1844,10 +1845,10 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
 .hero-bg .hero-grid,
 .contact-hero .hero-grid,
 .page-about .hero-grid {
-  display: none !important;
-  background-image: none !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
+  display: none;
+  background-image: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* Neutralise any subtle-grey background to match the base background */
@@ -1860,7 +1861,7 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
 .contact,
 .work-stills-slide img,
 .service-card:hover {
-  background: var(--bg) !important;
+  background: var(--bg);
 }
 
 /* ===== Final: Rebuild site background from scratch ===== */
@@ -1872,8 +1873,9 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
 }
 
 html, body {
-  background: var(--bg) !important;
-  background-color: var(--bg) !important;
+  background-color: var(--bg);
+  min-height: 100vh;
+  margin: 0;
   /* ensure stacking context for pseudo-element */
   position: relative;
 }
@@ -1890,10 +1892,10 @@ body::before {
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: clamp(4rem, 8vw, 6rem) clamp(4rem, 8vw, 6rem);
   background-repeat: repeat;
-  opacity: var(--grid-opacity) !important;
+  opacity: var(--grid-opacity);
   /* fade the grid toward edges to avoid hard cutoffs */
-  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%) !important;
-  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%) !important;
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%);
 }
 
 /* Make sure main content sits above the grid */
@@ -1904,12 +1906,12 @@ main, header, .site-header, .site-footer, .hero, .page-about {
 
 /* Restore primary button visibility (authoritative) */
 .btn-primary {
-  background: var(--ink) !important;
-  color: var(--bg) !important;
-  border-color: var(--ink) !important;
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
 }
 .btn-primary:hover {
-  opacity: 0.95 !important;
+  opacity: 0.95;
 }
 
 /* Whitelist decorative pseudo-elements: allow hero vignettes to remain */
@@ -1941,13 +1943,13 @@ main, header, .site-header, .site-footer, .hero, .page-about {
   border-radius: 6px;
   background-image:
     linear-gradient(rgba(13,13,13,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(13,13,13,0.04) 1px, transparent 1px) !important;
-  background-size: clamp(2rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem) !important;
-  background-repeat: repeat !important;
-  opacity: 0.06 !important;
+    linear-gradient(90deg, rgba(13,13,13,0.04) 1px, transparent 1px);
+  background-size: clamp(2rem, 4vw, 3rem) clamp(2rem, 4vw, 3rem);
+  background-repeat: repeat;
+  opacity: 0.06;
   /* soft fade to edges */
-  mask-image: radial-gradient(closest-side, rgba(0,0,0,1), rgba(0,0,0,0)) !important;
-  -webkit-mask-image: radial-gradient(closest-side, rgba(0,0,0,1), rgba(0,0,0,0)) !important;
+  mask-image: radial-gradient(closest-side, rgba(0,0,0,1), rgba(0,0,0,0));
+  -webkit-mask-image: radial-gradient(closest-side, rgba(0,0,0,1), rgba(0,0,0,0));
 }
 
 /* Subtle grid behind the About hero title (page-about) */
@@ -1969,19 +1971,20 @@ main, header, .site-header, .site-footer, .hero, .page-about {
   border-radius: 10px;
   background-image:
     linear-gradient(rgba(13,13,13,0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(13,13,13,0.035) 1px, transparent 1px) !important;
-  background-size: clamp(3rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem) !important;
-  background-repeat: repeat !important;
-  opacity: 0.06 !important;
-  mask-image: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%) !important;
-  -webkit-mask-image: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%) !important;
+    linear-gradient(90deg, rgba(13,13,13,0.035) 1px, transparent 1px);
+  background-size: clamp(3rem, 6vw, 5rem) clamp(3rem, 6vw, 5rem);
+  background-repeat: repeat;
+  opacity: 0.06;
+  mask-image: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
 }
 
 /* ===== Refined visual reset + subtle site grid + button fix ===== */
 /* Set a softer base background for the whole site */
 html, body {
-  background: #fbfbfb !important;
-  background-color: #fbfbfb !important;
+  background-color: #ffffff;
+  min-height: 100vh;
+  margin: 0;
 }
 
 /* Subtle full-page grid with faded edges (non-interactive) */
@@ -2007,17 +2010,17 @@ body::before {
 .hero-bg .hero-grid,
 .contact-hero .hero-grid,
 .page-about .hero-grid {
-  display: none !important;
+  display: none;
 }
 
 /* Restore primary button visibility (overrides earlier transparent reset) */
 .btn-primary {
-  background: var(--ink) !important;
-  color: var(--bg) !important;
-  border-color: var(--ink) !important;
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
 }
 .btn-primary:hover {
-  opacity: 0.95 !important;
+  opacity: 0.95;
 }
 
 /* Lighten any elements that used the subtle background to match the new base */
@@ -2025,5 +2028,5 @@ body::before {
 .contact,
 .work-stills-slide img,
 .service-card:hover {
-  background: var(--bg) !important;
+  background: var(--bg);
 }
