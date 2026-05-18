@@ -14,8 +14,8 @@ body {
     pointer-events: none !important;
     background-size: 120px 120px !important;
     background-image: 
-        linear-gradient(to right, rgba(0, 0, 0, 0.07) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 1px, transparent 1px) !important;
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px) !important;
     /* fade grid to fully transparent toward the corners */
     -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%) !important;
     mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 100%) !important;
@@ -35,8 +35,8 @@ html, body {
     min-height: 100vh;
     background-color: #ffffff !important;
     background-image:
-        linear-gradient(to right, rgba(0, 0, 0, 0.056) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.056) 1px, transparent 1px) !important;
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px) !important;
     background-size: 120px 120px !important;
     background-attachment: fixed !important;
 }
@@ -1496,6 +1496,8 @@ main {
   border-right: 1px solid var(--line-strong);
   border-bottom: 1px solid var(--line-strong);
   transition: background 0.45s var(--ease);
+  /* grey backdrop for each service window */
+  background: #f6f6f6;
 }
 
 .service-card:hover {
@@ -1934,7 +1936,7 @@ body::before {
 /* Subtle still grid with faded corners (final authoritative layer) */
 :root {
   --grid-color: rgba(13,13,13,0.03);
-  --grid-opacity: 0.06;
+  --grid-opacity: 0.03;
 }
 
 body::before {
@@ -1965,7 +1967,7 @@ main, header, .site-header, .site-footer, .hero, .page-about {
 :root {
   --bg: #f4f4f4;
   --grid-color: rgba(13,13,13,0.035);
-  --grid-opacity: 0.06;
+  --grid-opacity: 0.03;
 }
 
 html, body {
