@@ -26,6 +26,26 @@ header, main, section, .hero, .site-header, .site-footer {
   z-index: 2;
 }
 
+/* Overwrite global HTML/body to force body-level grid background (authoritative) */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #ffffff !important;
+    background-image:
+        linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px) !important;
+    background-size: 40px 40px !important;
+    background-attachment: fixed !important;
+}
+
+/* Ensure page containers are transparent so body grid remains visible */
+header, main, section, .site-header, .site-footer, .hero, .work, .services, .contact, .work-inner, .work-stills, .marquee, .service-card, .work-stills-track, .work-stills-slide, .work-thumb, .service-grid {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
 /* Lux Eterna — minimal white showcase */
 
 :root {
