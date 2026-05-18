@@ -470,6 +470,8 @@ main {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  /* ensure the hero area has a soft grey backing */
+  background-color: #f3f3f3 !important;
 }
 .contact-hero .hero-inner {
   position: relative;
@@ -766,7 +768,8 @@ main {
   overflow: hidden;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background: var(--bg-subtle);
+  /* distinct non-transparent grey background for sliding words */
+  background: #f3f3f3 !important;
   padding: 1.125rem 0;
 }
 
@@ -1577,7 +1580,8 @@ main {
 .contact {
   padding: clamp(4rem, 12vw, 7rem) clamp(1.25rem, 4vw, 3rem);
   border-top: 1px solid var(--line);
-  background: var(--bg-subtle);
+  /* stable grey background for Let's create / contact area */
+  background: #f3f3f3 !important;
 }
 
 .contact-inner {
