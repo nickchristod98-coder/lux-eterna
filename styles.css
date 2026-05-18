@@ -34,9 +34,9 @@ html, body {
     min-height: 100vh;
     background-color: #ffffff !important;
     background-image:
-        linear-gradient(to right, rgba(0, 0, 0, 0.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 1px, transparent 1px) !important;
-    background-size: 40px 40px !important;
+        linear-gradient(to right, rgba(0, 0, 0, 0.056) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.056) 1px, transparent 1px) !important;
+    background-size: 60px 60px !important;
     background-attachment: fixed !important;
 }
 
@@ -44,6 +44,16 @@ html, body {
 header, main, section, .site-header, .site-footer, .hero, .work, .services, .contact, .work-inner, .work-stills, .marquee, .service-card, .work-stills-track, .work-stills-slide, .work-thumb, .service-grid {
   background: transparent !important;
   background-color: transparent !important;
+}
+
+/* White-fade overlay at edges so grid softly fades into page background */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(circle at center, rgba(255,255,255,0) 60%, rgba(255,255,255,1) 100%);
 }
 
 /* Lux Eterna — minimal white showcase */
