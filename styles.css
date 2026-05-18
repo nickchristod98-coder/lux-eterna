@@ -397,6 +397,18 @@ main {
   background-size: calc(clamp(4rem, 8vw, 6rem) * 1.1) calc(clamp(4rem, 8vw, 6rem) * 1.1);
 }
 
+/* Keep the contact hero grid visually still while content scrolls independently */
+.contact-hero .hero-bg {
+  position: sticky;
+  top: calc(var(--header-h) + 0.5rem);
+  z-index: 0;
+  pointer-events: none;
+}
+.contact-hero .hero-inner {
+  position: relative;
+  z-index: 2;
+}
+
 .page-about .hero-grid {
   /* keep about page slightly stronger but still softly faded */
   opacity: 0.62;
@@ -692,7 +704,8 @@ main {
   font-style: italic;
   color: var(--ink-muted);
   letter-spacing: 0.06em;
-  animation: marquee 32s linear infinite;
+  animation: marquee 28s linear infinite;
+  white-space: nowrap;
 }
 
 .marquee .dot {

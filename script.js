@@ -215,6 +215,7 @@
   initWorkInlineVideos();
   initStillsModal();
   initServiceModals();
+  initMarqueeLoop();
 })();
 
 function initWorkInlineVideos() {
@@ -449,4 +450,22 @@ function initServiceModals() {
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && !modal.hasAttribute("hidden")) close();
   });
+}
+
+// Duplicate marquee content for seamless looping if needed
+function initMarqueeLoop() {
+  var el = document.querySelector(".marquee-inner");
+  if (!el) return;
+  if (el.dataset.duplicated === "1") return;
+  try {
+    // duplicate children to ensure continuous scroll
+    var children = Array.from(el.children);
+    children.forEach(function (child) {
+      var clone = child.cloneNode(true);
+      el.appendChild(clone);
+    });
+    el.dataset.duplicated = "1";
+  } catch (e) {
+    // ignore
+  }
 }
