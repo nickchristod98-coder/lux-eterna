@@ -205,6 +205,80 @@ main {
     clamp(5rem, 12vw, 7rem);
 }
 
+.hero-inner {
+  position: relative;
+}
+
+.hero-strapline {
+  position: absolute;
+  right: clamp(1rem, 4vw, 3rem);
+  top: clamp(2.25rem, 6vw, 3rem);
+  color: var(--ink-muted);
+  font-weight: 800;
+  font-style: italic;
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 6.5vw, 3.25rem);
+  line-height: 1;
+  opacity: 0.95;
+  text-align: right;
+  letter-spacing: -0.02em;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 880px) {
+  .hero-strapline {
+    position: static;
+    margin-top: 0.5rem;
+    text-align: left;
+    font-size: clamp(1rem, 2.6vw, 1.25rem);
+    font-style: italic;
+    font-weight: 700;
+  }
+}
+
+/* Hero subtitle (second title) that matches hero title design */
+.hero-subtitle {
+  position: absolute;
+  right: clamp(1.25rem, 4vw, 3rem);
+  top: clamp(2.5rem, 6vw, 3.25rem);
+  text-align: right;
+  display: block;
+  z-index: 2;
+  padding-left: 0;
+}
+
+.hero-sub-line {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+}
+
+.hero-subtitle .hero-sub-line {
+  font-size: clamp(1.6rem, 5.2vw, 3.5rem);
+}
+
+.hero-sub-accent {
+  margin-top: -0.06em;
+  font-style: italic;
+  color: var(--ink);
+  opacity: 0.48;
+  font-weight: 400;
+}
+
+@media (max-width: 880px) {
+  .hero-subtitle {
+    position: static;
+    margin-top: 0.5rem;
+    text-align: left;
+  }
+  .hero-subtitle .hero-sub-line {
+    font-size: clamp(1rem, 3.5vw, 1.6rem);
+  }
+}
+
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -216,6 +290,48 @@ main {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
+}
+
+/* Subtle film-like background: soft light leaks, vignette and fine texture */
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at 12% 22%, rgba(255,195,110,0.06) 0%, rgba(255,195,110,0.02) 8%, transparent 28%),
+    radial-gradient(circle at 86% 78%, rgba(140,180,255,0.035) 0%, rgba(140,180,255,0.01) 10%, transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
+  mix-blend-mode: overlay;
+  filter: saturate(1.05) blur(1px);
+  opacity: 0.95;
+}
+
+.hero-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  /* very fine film grain / scanlines texture */
+  background-image:
+    repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,0.02) 2px 3px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0) 0 14px, rgba(255,255,255,0.012) 14px 15px);
+  mix-blend-mode: soft-light;
+  opacity: 0.14;
+}
+
+/* Vignette to draw attention toward the center */
+.hero-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(60% 60% at 50% 48%, transparent 0%, transparent 50%, rgba(0,0,0,0.18) 100%);
+  mix-blend-mode: multiply;
+  opacity: 0.9;
 }
 
 .hero-glow--one {
@@ -680,6 +796,15 @@ main {
   display: none;
 }
 
+.work-inline-video.is-playing .work-video-poster {
+  display: none !important;
+  pointer-events: none;
+}
+
+.work-inline-video.is-playing .work-video-embed {
+  z-index: 2;
+}
+
 .work-video-embed iframe {
   position: absolute;
   inset: 0;
@@ -846,12 +971,16 @@ main {
   padding-bottom: 0.5rem;
   width: max-content;
   min-height: 0;
+  align-items: stretch;
+  /* fixed visual height for the collage feel */
+  height: min(44vh, 36rem);
 }
 
 .work-stills-slide {
   flex: 0 0 auto;
-  width: min(32rem, calc(100vw - 2.5rem));
-  max-width: 85vw;
+  width: auto;
+  /* let slides size by content while keeping uniform height */
+  height: 100%;
   margin: 0;
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -859,11 +988,197 @@ main {
 
 .work-stills-slide img {
   display: block;
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
+  object-fit: cover;
   border: 1px solid var(--line-strong);
   background: var(--bg-subtle);
 }
+
+/* Netflix-style title overlay */
+.work-stills-slide {
+  position: relative;
+  overflow: hidden;
+}
+
+.work-stills-caption {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  color: #fff;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+  padding: 0.5rem 0.75rem;
+  font-weight: 600;
+  font-size: 1.125rem;
+  border-radius: 6px;
+  transform: translateY(12px);
+  opacity: 0;
+  transition: transform 0.45s var(--ease), opacity 0.45s var(--ease);
+  pointer-events: none;
+}
+
+.work-stills-slide.is-active .work-stills-caption {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Auto-slide pause on hover/focus */
+.work-stills-scroller:hover,
+.work-stills-scroller:focus-within {
+  --stills-autoplay-paused: 1;
+}
+
+/* Hide still filenames from visual UI but keep accessible alt text */
+.work-stills-caption {
+  display: none !important;
+}
+
+/* Modal styles for photo viewer */
+.stills-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.stills-modal[hidden] {
+  display: none;
+}
+.stills-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+}
+.stills-modal-content {
+  position: relative;
+  max-width: min(92vw, 1600px);
+  max-height: 92vh;
+  padding: 1rem;
+  box-sizing: border-box;
+  z-index: 2;
+}
+.stills-modal-content img {
+  display: block;
+  max-width: 100%;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: #000;
+}
+.stills-modal-close {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 3;
+}
+.stills-modal-close:focus {
+  outline: 2px solid var(--ink);
+}
+
+/* Bigger, more stylish hero strapline */
+.hero-strapline {
+  position: absolute;
+  right: clamp(1rem, 4vw, 3rem);
+  top: clamp(2.25rem, 6vw, 3rem);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 3.2vw, 2rem);
+  letter-spacing: -0.02em;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.28);
+  opacity: 0.98;
+  text-align: right;
+  font-family: var(--font-serif);
+}
+
+@media (max-width: 880px) {
+  .hero-strapline {
+    position: static;
+    margin-top: 0.5rem;
+    text-align: left;
+    font-size: 1rem;
+    text-shadow: none;
+  }
+}
+
+/* Service modal styles */
+.service-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+.service-modal[hidden] { display: none; }
+.service-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(2px);
+}
+.service-modal-content {
+  position: relative;
+  z-index: 2;
+  background: var(--bg);
+  color: var(--ink);
+  max-width: min(56rem, 94vw);
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+.service-modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+.service-modal-head h3 {
+  margin: 0 0 0.75rem 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 500;
+}
+.service-modal-body {
+  color: var(--ink-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Unmute button overlay */
+.work-unmute {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 6;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.work-unmute:focus {
+  outline: 2px solid var(--ink);
+}
+.work-video-stage { position: relative; }
 
 @media (max-width: 640px) {
   .work-thumb--cinematic {
