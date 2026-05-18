@@ -15,39 +15,6 @@
   --header-h: 4.25rem;
 }
 
-/* Page-wide background + full-viewport grid overlay */
-html, body {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  background-color: #f4f4f4;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1;
-  background-image:
-    linear-gradient(rgba(0,0,0,0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,0.07) 1px, transparent 1px);
-  background-size: clamp(4rem, 8vw, 6rem) clamp(4rem, 8vw, 6rem);
-  background-repeat: repeat;
-  mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
-  -webkit-mask-image: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%);
-  opacity: 0.24;
-}
-
-/* Keep overlay ordering: grid (1) -> darkness (2) -> content (3) */
-body::after {
-  z-index: 2;
-}
-body > * { z-index: 3; position: relative; }
-
 *,
 *::before,
 *::after {
