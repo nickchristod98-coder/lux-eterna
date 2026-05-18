@@ -46,15 +46,7 @@ header, main, section, .site-header, .site-footer, .hero, .work, .services, .con
   background-color: transparent !important;
 }
 
-/* White-fade overlay at edges so grid softly fades into page background */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(circle at center, rgba(255,255,255,0) 60%, rgba(255,255,255,1) 100%);
-}
+/* (Removed) body::after overlay to avoid fading page content; grid fading is handled on .bg-grid */
 
 /* Lux Eterna — minimal white showcase */
 
