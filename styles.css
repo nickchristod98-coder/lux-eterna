@@ -1863,6 +1863,64 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
   background: var(--bg) !important;
 }
 
+/* ===== Final: Rebuild site background from scratch ===== */
+/* Light grey base and subtle full-page grid (authoritative - placed last) */
+:root {
+  --bg: #f4f4f4;
+  --grid-color: rgba(13,13,13,0.035);
+  --grid-opacity: 0.06;
+}
+
+html, body {
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  /* ensure stacking context for pseudo-element */
+  position: relative;
+}
+
+/* Full-page subtle grid with soft, faded edges */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0 !important;
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: clamp(4rem, 8vw, 6rem) clamp(4rem, 8vw, 6rem);
+  background-repeat: repeat;
+  opacity: var(--grid-opacity) !important;
+  /* fade the grid toward edges to avoid hard cutoffs */
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%) !important;
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%) !important;
+}
+
+/* Make sure main content sits above the grid */
+main, header, .site-header, .site-footer, .hero, .page-about {
+  position: relative;
+  z-index: 1;
+}
+
+/* Restore primary button visibility (authoritative) */
+.btn-primary {
+  background: var(--ink) !important;
+  color: var(--bg) !important;
+  border-color: var(--ink) !important;
+}
+.btn-primary:hover {
+  opacity: 0.95 !important;
+}
+
+/* Whitelist decorative pseudo-elements: allow hero vignettes to remain */
+.hero-bg::before,
+.hero-bg::after,
+.hero-inner::before {
+  background: unset !important;
+}
+
+/* End of background rebuild */
+
 /* ===== Logo-specific subtle grids ===== */
 /* Subtle grid behind header logo */
 .site-header .logo {
