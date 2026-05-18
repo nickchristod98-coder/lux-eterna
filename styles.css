@@ -361,7 +361,8 @@ main {
 .hero-grid {
   position: absolute;
   inset: 0;
-  opacity: 0.35;
+  /* increased visibility per request (15% more) */
+  opacity: 0.67;
   background-image: linear-gradient(var(--line) 1px, transparent 1px),
     linear-gradient(90deg, var(--line) 1px, transparent 1px);
   background-size: clamp(4rem, 8vw, 6rem) clamp(4rem, 8vw, 6rem);
@@ -375,6 +376,32 @@ main {
     black 0%,
     transparent 75%
   );
+}
+
+/* More visible grid variant for pages/sections that need it */
+.hero-grid--visible {
+  opacity: 0.72;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+/* Contact/About specific hero grid adjustments
+   For the contact "Let's create" section we want a more subtle grid with
+   faded edges outward so it gently frames the content. */
+.contact-hero .hero-grid {
+  /* slightly reduced opacity for subtlety */
+  opacity: 0.48;
+  /* fade edges outward using radial mask */
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.35) 72%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.35) 72%, transparent 100%);
+  background-size: calc(clamp(4rem, 8vw, 6rem) * 1.1) calc(clamp(4rem, 8vw, 6rem) * 1.1);
+}
+
+.page-about .hero-grid {
+  /* keep about page slightly stronger but still softly faded */
+  opacity: 0.62;
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 48%, rgba(0,0,0,0.45) 74%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.9) 48%, rgba(0,0,0,0.45) 74%, transparent 100%);
 }
 
 .hero-inner {
@@ -897,6 +924,7 @@ main {
   margin-top: clamp(3rem, 8vw, 5rem);
   padding-top: clamp(2rem, 5vw, 3rem);
   border-top: 1px solid var(--line-strong);
+  position: relative;
 }
 
 .work-stills-header {
@@ -908,48 +936,93 @@ main {
 }
 
 .work-stills-title {
-  margin: 0;
-  font-family: var(--font-serif);
-  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  /* visually hidden but remains in DOM for accessibility */
+  position: absolute !important;
+  left: -9999px !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  clip: rect(1px, 1px, 1px, 1px) !important;
+  white-space: nowrap !important;
 }
 
 .work-stills-nav {
   display: none;
   flex-shrink: 0;
   gap: 0.5rem;
+  /* keep in DOM but position handled per-button */
 }
 
 .work-stills.has-slides .work-stills-nav {
-  display: flex;
+  display: block;
 }
 
 .work-stills-btn {
-  width: 2.5rem;
-  height: 2.5rem;
+  /* Ultra-minimal arrow buttons positioned further outside the scroller */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  border: 1px solid var(--line-strong);
-  background: var(--bg);
+  width: auto;
+  height: auto;
+  border: none;
+  background: transparent;
   color: var(--ink);
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 2.2vw, 1.4rem);
   line-height: 1;
   cursor: pointer;
-  transition: border-color 0.35s var(--ease), background 0.35s var(--ease);
+  opacity: 0.65;
+  transition: opacity 0.16s var(--ease), transform 0.16s var(--ease);
+  -webkit-appearance: none;
 }
 
 .work-stills-btn:hover {
-  border-color: var(--ink);
-  background: var(--bg-subtle);
+  opacity: 1;
+  transform: translateY(-50%);
 }
 
 .work-stills-btn:focus-visible {
   outline: 2px solid var(--ink);
-  outline-offset: 2px;
+  outline-offset: 6px;
 }
+
+/* Position prev/next further outside the container edges for minimal look */
+.work-stills-btn--prev {
+  left: calc(-1 * clamp(3rem, 8vw, 5rem));
+}
+.work-stills-btn--next {
+  right: calc(-1 * clamp(3rem, 8vw, 5rem));
+}
+
+/* Fade overlays at scroller edges to hide incoming/leaving slides */
+.work-stills {
+  /* fade overlays live on the container so they remain fixed while slides scroll */
+  position: relative;
+}
+.work-stills::before,
+.work-stills::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: clamp(2rem, 6vw, 4rem);
+  pointer-events: none;
+  z-index: 2;
+}
+.work-stills::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg) 0%, rgba(255,255,255,0) 100%);
+}
+.work-stills::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg) 0%, rgba(255,255,255,0) 100%);
+}
+
+/* ensure arrow buttons float above the fade overlays */
+.work-stills-btn { z-index: 5; }
 
 .work-stills-scroller {
   overflow-x: auto;
@@ -1159,6 +1232,55 @@ main {
   color: var(--ink-muted);
   font-size: 1rem;
   line-height: 1.6;
+}
+
+/* About page styles */
+.page-about .hero {
+  padding: clamp(4rem, 10vw, 6rem) clamp(1.25rem, 4vw, 3rem);
+  min-height: 36vh;
+}
+.about-copy .work-inner {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 3rem);
+}
+.meet-artists .artist-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1rem, 2.5vw, 2rem);
+  align-items: start;
+}
+.artist-card {
+  background: var(--bg);
+  border: 1px solid var(--line-strong);
+  padding: 1rem;
+  text-align: center;
+}
+.artist-card img {
+  width: 100%;
+  height: 18rem;
+  object-fit: cover;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+.artist-role {
+  color: var(--ink-muted);
+  margin: 0.25rem 0 0.5rem;
+  font-weight: 500;
+}
+.artist-bio {
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 880px) {
+  .meet-artists .artist-grid {
+    grid-template-columns: 1fr;
+  }
+  .artist-card img {
+    height: 14rem;
+  }
 }
 
 /* Unmute button overlay */
