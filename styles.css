@@ -1784,3 +1784,81 @@ a.connect-value:hover {
 .service-card.reveal {
   transition-delay: calc(var(--i, 0) * 0.06s);
 }
+
+/* ===== Emergency reset: remove all site background layers and force single base color ===== */
+/* 1) Force html/body to single base color (white). Change hex below if you prefer a different base. */
+html, body {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/* 2) Remove background images, gradients and background colors site-wide (except images and svgs). */
+*:not(img):not(svg):not(video):not(canvas) {
+  background: transparent !important;
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+/* 3) Specifically neutralise known background/grid containers */
+.hero-bg,
+.hero-bg::before,
+.hero-bg::after,
+.hero-grid,
+.hero-grid--visible,
+.contact-hero .hero-bg,
+.contact-hero .hero-grid,
+.marquee,
+.marquee-inner,
+.work-video-stage,
+.work-thumb,
+.contact,
+.service-card,
+.stills-modal-backdrop {
+  background: transparent !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 4) Remove any rigid block backgrounds that might create sharp bands */
+header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .hero {
+  background: transparent !important;
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+/* 5) Reset inline pseudo-element backgrounds used for vignettes/gradients */
+*:before, *:after {
+  background: transparent !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+}
+
+/* NOTE: This is aggressive — if you want to preserve some decorative gradients, tell me which ones and I'll whitelist them. */
+
+/* ===== Overrides: remove background grid and subtle grey color ===== */
+/* Ensure the subtle grid overlays are disabled site-wide */
+.hero-grid,
+.hero-bg .hero-grid,
+.contact-hero .hero-grid,
+.page-about .hero-grid {
+  display: none !important;
+  background-image: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Neutralise any subtle-grey background to match the base background */
+:root {
+  --bg-subtle: var(--bg);
+}
+
+/* Force components that used the subtle background to use the base background */
+.marquee,
+.contact,
+.work-stills-slide img,
+.service-card:hover {
+  background: var(--bg) !important;
+}
