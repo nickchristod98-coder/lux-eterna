@@ -212,6 +212,7 @@
       });
     });
 
+  fixYouTubePosterFallbacks();
   initWorkInlineVideos();
   initStillsModal();
   initServiceModals();
@@ -468,4 +469,53 @@ function initMarqueeLoop() {
   } catch (e) {
     // ignore
   }
+}
+
+// Ensure YouTube poster images fall back if maxresmissing
+function fixYouTubePosterFallbacks() {
+  document.querySelectorAll(".work-inline-video .work-thumb--video img").forEach(function (img) {
+    if (!img || !img.src) return;
+    try {
+      var url = img.src;
+      // only process youtube thumbnails
+      if (!/img\.youtube\.com\/vi\/([^/]+)\/maxresdefault\.jpg/i.test(url)) return;
+      var match = url.match(/vi\/([^/]+)\/maxresdefault\.jpg/i);
+      if (!match) return;
+      var id = match[1];
+      var fallbacks = [
+        "https://img.youtube.com/vi/" + id + "/maxresdefault.jpg",
+        "https://img.youtube.com/vi/" + id + "/sddefault.jpg",
+        "https://img.youtube.com/vi/" + id + "/hqdefault.jpg",
+        "https://img.youtube.com/vi/" + id + "/mqdefault.jpg",
+        "https://img.youtube.com/vi/" + id + "/default.jpg"
+      ];
+      var idx = 0;
+      function tryNext() {
+        if (idx >= fallbacks.length) return;
+        var next = fallbacks[idx++];
+        // quick probe with Image to check availability
+        var probe = new Image();
+        probe.onload = function () {
+          // if loaded with width > 120 px assume valid
+          if (probe.naturalWidth && probe.naturalWidth > 120) {
+            img.src = next;
+          } else {
+            tryNext();
+          }
+        };
+        probe.onerror = function () {
+          tryNext();
+        };
+        probe.src = next;
+      }
+      // attach error handler to switch if the currently set src 404s
+      img.addEventListener("error", function () {
+        tryNext();
+      });
+      // if image already failed to load, trigger fallback
+      if (img.complete && (!img.naturalWidth || img.naturalWidth === 0)) {
+        tryNext();
+      }
+    } catch (e) {}
+  });
 }
