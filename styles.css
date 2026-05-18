@@ -1864,6 +1864,35 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
   background: var(--bg);
 }
 
+/* Subtle still grid with faded corners (final authoritative layer) */
+:root {
+  --grid-color: rgba(13,13,13,0.03);
+  --grid-opacity: 0.06;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: clamp(3.5rem, 7vw, 6rem) clamp(3.5rem, 7vw, 6rem);
+  background-repeat: repeat;
+  opacity: var(--grid-opacity);
+  /* soft fade toward corners so grid doesn't create hard edges */
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%);
+}
+
+/* ensure content sits above the decorative grid */
+main, header, .site-header, .site-footer, .hero, .page-about {
+  position: relative;
+  z-index: 1;
+}
+
 /* ===== Final: Rebuild site background from scratch ===== */
 /* Light grey base and subtle full-page grid (authoritative - placed last) */
 :root {
