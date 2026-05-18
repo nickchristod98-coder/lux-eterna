@@ -12,7 +12,7 @@ body {
     height: 100vh !important;
     z-index: 0 !important;
     pointer-events: none !important;
-    background-size: 50px 50px !important;
+    background-size: 120px 120px !important;
     background-image: 
         linear-gradient(to right, rgba(0, 0, 0, 0.07) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.07) 1px, transparent 1px) !important;
@@ -36,7 +36,7 @@ html, body {
     background-image:
         linear-gradient(to right, rgba(0, 0, 0, 0.056) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.056) 1px, transparent 1px) !important;
-    background-size: 60px 60px !important;
+    background-size: 120px 120px !important;
     background-attachment: fixed !important;
 }
 
@@ -1931,7 +1931,7 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
   height: 100vh;
   z-index: -1;
   pointer-events: none;
-  background-size: 40px 40px;
+  background-size: 120px 120px;
   background-image:
     linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
