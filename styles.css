@@ -1862,3 +1862,54 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
 .service-card:hover {
   background: var(--bg) !important;
 }
+
+/* ===== Refined visual reset + subtle site grid + button fix ===== */
+/* Set a softer base background for the whole site */
+html, body {
+  background: #fbfbfb !important;
+  background-color: #fbfbfb !important;
+}
+
+/* Subtle full-page grid with faded edges (non-interactive) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(13,13,13,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(13,13,13,0.035) 1px, transparent 1px);
+  background-size: clamp(4rem, 8vw, 6rem) clamp(4rem, 8vw, 6rem);
+  background-repeat: repeat;
+  opacity: 0.06;
+  /* fade the grid toward the edges */
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 62%, rgba(0,0,0,0) 100%);
+}
+
+/* Keep per-hero grids disabled to avoid doubling the effect */
+.hero-grid,
+.hero-bg .hero-grid,
+.contact-hero .hero-grid,
+.page-about .hero-grid {
+  display: none !important;
+}
+
+/* Restore primary button visibility (overrides earlier transparent reset) */
+.btn-primary {
+  background: var(--ink) !important;
+  color: var(--bg) !important;
+  border-color: var(--ink) !important;
+}
+.btn-primary:hover {
+  opacity: 0.95 !important;
+}
+
+/* Lighten any elements that used the subtle background to match the new base */
+.marquee,
+.contact,
+.work-stills-slide img,
+.service-card:hover {
+  background: var(--bg) !important;
+}
