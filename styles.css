@@ -1078,21 +1078,15 @@ main {
 }
 .work-stills::before,
 .work-stills::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: clamp(2rem, 6vw, 4rem);
-  pointer-events: none;
-  z-index: 2;
-}
-.work-stills::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg) 0%, rgba(255,255,255,0) 100%);
-}
-.work-stills::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg) 0%, rgba(255,255,255,0) 100%);
+  /* remove faded edge overlays so stills container shows full images */
+  display: none !important;
+  content: none !important;
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  background: transparent !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
 }
 
 /* ensure arrow buttons float above the fade overlays */
