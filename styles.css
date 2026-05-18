@@ -10,7 +10,7 @@ body {
     left: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    z-index: 0 !important;
+    z-index: -1 !important;
     pointer-events: none !important;
     background-size: 120px 120px !important;
     background-image: 
@@ -457,21 +457,11 @@ main {
 
 /* Keep the contact hero grid visually still while content scrolls independently */
 .contact-hero .hero-bg {
-  /* Make the grid visually fixed within the hero area so it remains still.
-     Use fixed positioning constrained to the hero's vertical region. */
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: calc(var(--header-h) + 1rem);
-  height: min(48vh, 28rem);
-  z-index: 0;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  /* ensure the hero area has a soft grey backing */
-  background-color: #f3f3f3 !important;
+  /* Temporarily disable the fixed grey hero-bg overlay that was obscuring content */
+  display: none !important;
+  background: transparent !important;
+  position: static !important;
+  pointer-events: none !important;
 }
 .contact-hero .hero-inner {
   position: relative;
