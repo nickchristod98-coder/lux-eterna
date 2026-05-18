@@ -5,8 +5,9 @@
   --bg-subtle: #fafafa;
   --ink: #0d0d0d;
   --ink-muted: #5c5c5c;
-  --line: rgba(13, 13, 13, 0.08);
-  --line-strong: rgba(13, 13, 13, 0.14);
+  /* much subtler grid lines */
+  --line: rgba(13, 13, 13, 0.035);
+  --line-strong: rgba(13, 13, 13, 0.08);
   --font-serif: "Cormorant Garamond", Georgia, serif;
   --font-sans: "Outfit", system-ui, sans-serif;
   --font-logo: "Space Grotesk", system-ui, sans-serif;
@@ -27,14 +28,8 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  /* Subtle grey base with a faint grid across the whole page */
+  /* Subtle grey base; grid rendered as an overlay pseudo-element so we can fade edges */
   background-color: var(--bg-subtle);
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: clamp(4rem, 8vw, 6rem) clamp(4rem, 8vw, 6rem);
-  background-position: 0 0, 0 0;
-  background-repeat: repeat;
   color: var(--ink);
   font-family: var(--font-sans);
   font-weight: 300;
@@ -44,10 +39,45 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Body grid overlay (subtle) with faded edges */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: clamp(4rem, 8vw, 6rem) clamp(4rem, 8vw, 6rem);
+  opacity: 0.28;
+  /* Fade grid toward edges */
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.6) 65%, rgba(0,0,0,0) 100%);
+}
+
+/* Scroll darkness overlay sits above the grid but below content */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: #000;
+  pointer-events: none;
+  z-index: 1;
+  opacity: var(--scroll-darkness, 0);
+  transition: opacity 180ms linear;
+}
+
 /* Hide per-hero grid elements to avoid double-grids when using full-page grid */
 .hero-bg .hero-grid,
 .hero-grid {
   display: none !important;
+}
+
+/* Ensure page content sits above the overlays */
+body > * {
+  position: relative;
+  z-index: 2;
 }
 
 a {
