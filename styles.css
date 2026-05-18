@@ -390,7 +390,7 @@ main {
    faded edges outward so it gently frames the content. */
 .contact-hero .hero-grid {
   /* slightly reduced opacity for subtlety */
-  opacity: 0.48;
+  opacity: 0.60;
   /* fade edges outward using radial mask */
   mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.35) 72%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 50%, rgba(0,0,0,0.35) 72%, transparent 100%);
@@ -399,14 +399,31 @@ main {
 
 /* Keep the contact hero grid visually still while content scrolls independently */
 .contact-hero .hero-bg {
-  position: sticky;
-  top: calc(var(--header-h) + 0.5rem);
+  /* Make the grid visually fixed within the hero area so it remains still.
+     Use fixed positioning constrained to the hero's vertical region. */
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: calc(var(--header-h) + 1rem);
+  height: min(48vh, 28rem);
   z-index: 0;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 .contact-hero .hero-inner {
   position: relative;
   z-index: 2;
+}
+
+@media (max-width: 880px) {
+  .contact-hero .hero-bg {
+    position: absolute;
+    top: 0;
+    height: auto;
+  }
 }
 
 .page-about .hero-grid {
