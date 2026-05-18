@@ -27,8 +27,14 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  /* Use the subtle grey background site-wide for a consistent tone */
-  background: var(--bg-subtle);
+  /* Subtle grey base with a faint grid across the whole page */
+  background-color: var(--bg-subtle);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: clamp(4rem, 8vw, 6rem) clamp(4rem, 8vw, 6rem);
+  background-position: 0 0, 0 0;
+  background-repeat: repeat;
   color: var(--ink);
   font-family: var(--font-sans);
   font-weight: 300;
@@ -36,6 +42,12 @@ body {
   line-height: 1.65;
   letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Hide per-hero grid elements to avoid double-grids when using full-page grid */
+.hero-bg .hero-grid,
+.hero-grid {
+  display: none !important;
 }
 
 a {
