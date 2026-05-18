@@ -1864,6 +1864,28 @@ header, .site-header, .site-footer, .contact-page, .page-contact, .page-about, .
   background: var(--bg);
 }
 
+/* New explicit bg-grid element for predictable background grid */
+.bg-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+  mask-image: radial-gradient(circle at center, rgba(0,0,0,1) 50%, rgba(0,0,0,0) 100%);
+}
+
+/* Disable pseudo-element grid to avoid duplication when using .bg-grid */
+body::before {
+  display: none;
+}
+
 /* Subtle still grid with faded corners (final authoritative layer) */
 :root {
   --grid-color: rgba(13,13,13,0.03);
