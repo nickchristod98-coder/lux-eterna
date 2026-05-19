@@ -127,211 +127,62 @@
             <h2 id="work-heading">Work</h2>
           </header>
 
-          <div class="work-stills reveal" id="work-stills">
-            <div class="work-stills-header">
-              <h3 class="work-stills-title" id="work-stills-heading">Stills</h3>
-              <div class="work-stills-nav" aria-label="Slide photographs">
-                <button
-                  type="button"
-                  class="work-stills-btn work-stills-btn--prev"
-                  aria-controls="work-stills-scroller"
-                  aria-label="Previous photograph"
-                >
-                  <span aria-hidden="true">←</span>
-                </button>
-                <button
-                  type="button"
-                  class="work-stills-btn work-stills-btn--next"
-                  aria-controls="work-stills-scroller"
-                  aria-label="Next photograph"
-                >
-                  <span aria-hidden="true">→</span>
-                </button>
+          <!-- REPLACEMENT: Static Asymmetric Collage (Left: first 4 images; Right: next 5 images) -->
+          <section class="collage-section reveal" id="stills-collage">
+            <div class="max-w-[1200px] mx-auto px-4">
+              <div class="relative grid md:grid-cols-2 gap-6 items-start">
+                <!-- LEFT GRID (Dark / Surfing) -->
+                <div class="bg-slate-900 text-white rounded-xl p-4 grid grid-cols-2 grid-rows-2 gap-4">
+                  <div class="overflow-hidden rounded-lg h-[300px]">
+                    <img src="./Images/Stills/A7305995.jpg" alt="Portrait" class="w-full h-full object-cover" />
+                  </div>
+                  <div class="overflow-hidden rounded-lg h-[300px]">
+                    <img src="./Images/Stills/A7306150.jpg" alt="Wave landscape" class="w-full h-full object-cover" />
+                  </div>
+                  <div class="col-span-2 overflow-hidden rounded-lg h-[300px]">
+                    <img src="./Images/Stills/A7306302.jpg" alt="Wide texture 1" class="w-full h-full object-cover" />
+                  </div>
+                  <div class="overflow-hidden rounded-lg h-[300px]">
+                    <img src="./Images/Stills/A7308436.jpg" alt="Texture 2" class="w-full h-full object-cover" />
+                  </div>
+                </div>
+
+                <!-- RIGHT GRID (Light / Wedding Moodboard) -->
+                <aside class="relative bg-white rounded-xl p-4 shadow-xl -mt-12 md:-mt-6 md:-ml-6 z-10">
+                  <div class="grid gap-4">
+                    <div class="grid grid-cols-2 gap-4">
+                      <div class="overflow-hidden rounded-lg h-[300px]">
+                        <img src="./Images/Stills/A7308480.jpg" alt="Wedding vert 1" class="w-full h-full object-cover" />
+                      </div>
+                      <div class="overflow-hidden rounded-lg h-[300px]">
+                        <img src="./Images/Stills/A7400844.jpg" alt="Wedding vert 2" class="w-full h-full object-cover" />
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-[40%_60%] gap-4">
+                      <div class="overflow-hidden rounded-lg h-[300px]">
+                        <img src="./Images/Stills/A7402945.jpg" alt="Detail shot" class="w-full h-full object-cover" />
+                      </div>
+                      <div class="overflow-hidden rounded-lg h-[300px]">
+                        <img src="./Images/Stills/A7404555.jpg" alt="Couple portrait" class="w-full h-full object-cover" />
+                      </div>
+                    </div>
+
+                    <div class="overflow-hidden rounded-lg h-[300px]">
+                      <img src="./Images/Stills/A7404572.jpg" alt="Panoramic wedding" class="w-full h-full object-cover" />
+                    </div>
+                  </div>
+
+                  <!-- Swatches overlapping between middle and bottom rows -->
+                  <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-6 flex gap-3 pointer-events-none">
+                    <span class="w-10 h-10 rounded-full bg-[#9dbb9a] shadow-lg ring-4 ring-white/80"></span>
+                    <span class="w-10 h-10 rounded-full bg-[#f6c6aa] shadow-lg ring-4 ring-white/80 -translate-x-2"></span>
+                    <span class="w-10 h-10 rounded-full bg-[#d6a85a] shadow-lg ring-4 ring-white/80 -translate-x-4"></span>
+                  </div>
+                </aside>
               </div>
             </div>
-            <div
-              class="work-stills-scroller"
-              id="work-stills-scroller"
-              tabindex="0"
-              role="region"
-              aria-labelledby="work-stills-heading"
-            >
-              <div class="work-stills-track" id="work-stills-track">
-                <figure class="work-stills-slide" data-title="A7305995">
-                  <img src="./Images/Stills/A7305995.jpg" alt="Still — A7305995" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7305995</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7306150">
-                  <img src="./Images/Stills/A7306150.jpg" alt="Still — A7306150" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7306150</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7306302">
-                  <img src="./Images/Stills/A7306302.jpg" alt="Still — A7306302" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7306302</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7308436">
-                  <img src="./Images/Stills/A7308436.jpg" alt="Still — A7308436" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7308436</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7308480">
-                  <img src="./Images/Stills/A7308480.jpg" alt="Still — A7308480" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7308480</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7400844">
-                  <img src="./Images/Stills/A7400844.jpg" alt="Still — A7400844" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7400844</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7402945">
-                  <img src="./Images/Stills/A7402945.jpg" alt="Still — A7402945" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7402945</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7404555">
-                  <img src="./Images/Stills/A7404555.jpg" alt="Still — A7404555" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7404555</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7404572">
-                  <img src="./Images/Stills/A7404572.jpg" alt="Still — A7404572" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7404572</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7404576">
-                  <img src="./Images/Stills/A7404576.jpg" alt="Still — A7404576" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7404576</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7404643">
-                  <img src="./Images/Stills/A7404643.jpg" alt="Still — A7404643" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7404643</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7404884">
-                  <img src="./Images/Stills/A7404884.jpg" alt="Still — A7404884" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7404884</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405069">
-                  <img src="./Images/Stills/A7405069.jpg" alt="Still — A7405069" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405069</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405076">
-                  <img src="./Images/Stills/A7405076.jpg" alt="Still — A7405076" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405076</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405223">
-                  <img src="./Images/Stills/A7405223.jpg" alt="Still — A7405223" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405223</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405408">
-                  <img src="./Images/Stills/A7405408.jpg" alt="Still — A7405408" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405408</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405533">
-                  <img src="./Images/Stills/A7405533.jpg" alt="Still — A7405533" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405533</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405583">
-                  <img src="./Images/Stills/A7405583.jpg" alt="Still — A7405583" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405583</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405601">
-                  <img src="./Images/Stills/A7405601.jpg" alt="Still — A7405601" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405601</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405615">
-                  <img src="./Images/Stills/A7405615.jpg" alt="Still — A7405615" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405615</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405629">
-                  <img src="./Images/Stills/A7405629.jpg" alt="Still — A7405629" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405629</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405640">
-                  <img src="./Images/Stills/A7405640.jpg" alt="Still — A7405640" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405640</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405684">
-                  <img src="./Images/Stills/A7405684.jpg" alt="Still — A7405684" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405684</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405712">
-                  <img src="./Images/Stills/A7405712.jpg" alt="Still — A7405712" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405712</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7405717">
-                  <img src="./Images/Stills/A7405717.jpg" alt="Still — A7405717" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7405717</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7406091">
-                  <img src="./Images/Stills/A7406091.jpg" alt="Still — A7406091" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7406091</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7406212">
-                  <img src="./Images/Stills/A7406212.jpg" alt="Still — A7406212" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7406212</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7406301">
-                  <img src="./Images/Stills/A7406301.jpg" alt="Still — A7406301" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7406301</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7406696">
-                  <img src="./Images/Stills/A7406696.jpg" alt="Still — A7406696" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7406696</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7407056">
-                  <img src="./Images/Stills/A7407056.jpg" alt="Still — A7407056" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7407056</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7407113">
-                  <img src="./Images/Stills/A7407113.jpg" alt="Still — A7407113" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7407113</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7407139">
-                  <img src="./Images/Stills/A7407139.jpg" alt="Still — A7407139" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7407139</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7407153">
-                  <img src="./Images/Stills/A7407153.jpg" alt="Still — A7407153" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7407153</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7407167">
-                  <img src="./Images/Stills/A7407167.jpg" alt="Still — A7407167" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7407167</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7409413">
-                  <img src="./Images/Stills/A7409413.jpg" alt="Still — A7409413" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7409413</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7V02106">
-                  <img src="./Images/Stills/A7V02106.jpg" alt="Still — A7V02106" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7V02106</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7V02121">
-                  <img src="./Images/Stills/A7V02121.jpg" alt="Still — A7V02121" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7V02121</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7V02125">
-                  <img src="./Images/Stills/A7V02125.jpg" alt="Still — A7V02125" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7V02125</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7V02136">
-                  <img src="./Images/Stills/A7V02136.jpg" alt="Still — A7V02136" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7V02136</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7V02192">
-                  <img src="./Images/Stills/A7V02192.jpg" alt="Still — A7V02192" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7V02192</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7V04088">
-                  <img src="./Images/Stills/A7V04088.jpg" alt="Still — A7V04088" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7V04088</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7V04367">
-                  <img src="./Images/Stills/A7V04367.jpg" alt="Still — A7V04367" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7V04367</figcaption>
-                </figure>
-                <figure class="work-stills-slide" data-title="A7V05084">
-                  <img src="./Images/Stills/A7V05084.jpg" alt="Still — A7V05084" width="1200" height="800" loading="lazy" />
-                  <figcaption class="work-stills-caption">A7V05084</figcaption>
-                </figure>
-              </div>
-            </div>
-          </div>
+          </section>
 
           <div class="work-solo reveal">
             <div class="work-solo-head">
