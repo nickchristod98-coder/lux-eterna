@@ -127,59 +127,58 @@
             <h2 id="work-heading">Work</h2>
           </header>
 
-          <!-- REPLACEMENT: Static Asymmetric Collage (Left: first 4 images; Right: next 5 images) -->
-          <section class="collage-section reveal" id="stills-collage">
-            <div class="max-w-[1200px] mx-auto px-4">
-              <div class="relative grid md:grid-cols-2 gap-6 items-start">
-                <!-- LEFT GRID (Dark / Surfing) -->
-                <div class="bg-slate-900 text-white rounded-xl p-4 grid grid-cols-2 grid-rows-2 gap-4">
-                  <div class="overflow-hidden rounded-lg h-[300px]">
-                    <img src="./Images/Stills/A7305995.jpg" alt="Portrait" class="w-full h-full object-cover" />
-                  </div>
-                  <div class="overflow-hidden rounded-lg h-[300px]">
-                    <img src="./Images/Stills/A7306150.jpg" alt="Wave landscape" class="w-full h-full object-cover" />
-                  </div>
-                  <div class="col-span-2 overflow-hidden rounded-lg h-[300px]">
-                    <img src="./Images/Stills/A7306302.jpg" alt="Wide texture 1" class="w-full h-full object-cover" />
-                  </div>
-                  <div class="overflow-hidden rounded-lg h-[300px]">
-                    <img src="./Images/Stills/A7308436.jpg" alt="Texture 2" class="w-full h-full object-cover" />
-                  </div>
+          <!-- New robust static collage (replaces slider) -->
+          <section class="w-full min-h-screen py-12 px-4 md:px-8" aria-labelledby="work-heading">
+            <div class="flex flex-col lg:flex-row gap-8 items-start justify-center max-w-[1200px] mx-auto">
+              <!-- LEFT GRID (Dark / Surfing) -->
+              <div class="lg:w-1/2 w-full grid grid-cols-2 gap-4 bg-slate-900 rounded-xl p-4">
+                <!-- Top Left: portrait -->
+                <div class="overflow-hidden rounded-2xl h-[300px]">
+                  <img src="./Images/Stills/A7305995.jpg" alt="Portrait" class="w-full h-full object-cover" />
+                </div>
+                <!-- Top Right: wave landscape -->
+                <div class="overflow-hidden rounded-2xl h-[300px]">
+                  <img src="./Images/Stills/A7306150.jpg" alt="Wave" class="w-full h-full object-cover" />
+                </div>
+                <!-- Bottom Left: large horizontal spanning two cols -->
+                <div class="col-span-2 overflow-hidden rounded-2xl h-[300px]">
+                  <img src="./Images/Stills/A7306302.jpg" alt="Ocean wide 1" class="w-full h-full object-cover" />
+                </div>
+                <!-- Bottom Right: narrow vertical -->
+                <div class="overflow-hidden rounded-2xl h-[300px]">
+                  <img src="./Images/Stills/A7308436.jpg" alt="Ocean texture" class="w-full h-full object-cover" />
+                </div>
+              </div>
+
+              <!-- RIGHT GRID (Light / Wedding) -->
+              <div class="lg:w-1/2 w-full grid grid-cols-2 gap-4 lg:-ml-12 lg:z-10 relative">
+                <!-- Row1: two vertical portraits -->
+                <div class="overflow-hidden rounded-2xl h-[300px]">
+                  <img src="./Images/Stills/A7308480.jpg" alt="Wedding vert 1" class="w-full h-full object-cover" />
+                </div>
+                <div class="overflow-hidden rounded-2xl h-[300px]">
+                  <img src="./Images/Stills/A7400844.jpg" alt="Wedding vert 2" class="w-full h-full object-cover" />
                 </div>
 
-                <!-- RIGHT GRID (Light / Wedding Moodboard) -->
-                <aside class="relative bg-white rounded-xl p-4 shadow-xl -mt-12 md:-mt-6 md:-ml-6 z-10">
-                  <div class="grid gap-4">
-                    <div class="grid grid-cols-2 gap-4">
-                      <div class="overflow-hidden rounded-lg h-[300px]">
-                        <img src="./Images/Stills/A7308480.jpg" alt="Wedding vert 1" class="w-full h-full object-cover" />
-                      </div>
-                      <div class="overflow-hidden rounded-lg h-[300px]">
-                        <img src="./Images/Stills/A7400844.jpg" alt="Wedding vert 2" class="w-full h-full object-cover" />
-                      </div>
-                    </div>
+                <!-- Row2: 40/60 split -->
+                <div class="overflow-hidden rounded-2xl h-[300px]">
+                  <img src="./Images/Stills/A7402945.jpg" alt="Detail shot" class="w-full h-full object-cover" />
+                </div>
+                <div class="overflow-hidden rounded-2xl h-[300px]">
+                  <img src="./Images/Stills/A7404555.jpg" alt="Couple on stairs" class="w-full h-full object-cover" />
+                </div>
 
-                    <div class="grid grid-cols-[40%_60%] gap-4">
-                      <div class="overflow-hidden rounded-lg h-[300px]">
-                        <img src="./Images/Stills/A7402945.jpg" alt="Detail shot" class="w-full h-full object-cover" />
-                      </div>
-                      <div class="overflow-hidden rounded-lg h-[300px]">
-                        <img src="./Images/Stills/A7404555.jpg" alt="Couple portrait" class="w-full h-full object-cover" />
-                      </div>
-                    </div>
+                <!-- Row3: full-width landscape -->
+                <div class="col-span-2 overflow-hidden rounded-2xl h-[300px]">
+                  <img src="./Images/Stills/A7404572.jpg" alt="Panorama" class="w-full h-full object-cover" />
+                </div>
 
-                    <div class="overflow-hidden rounded-lg h-[300px]">
-                      <img src="./Images/Stills/A7404572.jpg" alt="Panoramic wedding" class="w-full h-full object-cover" />
-                    </div>
-                  </div>
-
-                  <!-- Swatches overlapping between middle and bottom rows -->
-                  <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-6 flex gap-3 pointer-events-none">
-                    <span class="w-10 h-10 rounded-full bg-[#9dbb9a] shadow-lg ring-4 ring-white/80"></span>
-                    <span class="w-10 h-10 rounded-full bg-[#f6c6aa] shadow-lg ring-4 ring-white/80 -translate-x-2"></span>
-                    <span class="w-10 h-10 rounded-full bg-[#d6a85a] shadow-lg ring-4 ring-white/80 -translate-x-4"></span>
-                  </div>
-                </aside>
+                <!-- three swatches absolutely positioned -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-8 flex gap-3 pointer-events-none">
+                  <span class="w-10 h-10 rounded-full bg-[#9dbb9a] shadow-lg ring-4 ring-white/80"></span>
+                  <span class="w-10 h-10 rounded-full bg-[#f6c6aa] shadow-lg ring-4 ring-white/80 -translate-x-2"></span>
+                  <span class="w-10 h-10 rounded-full bg-[#d6a85a] shadow-lg ring-4 ring-white/80 -translate-x-4"></span>
+                </div>
               </div>
             </div>
           </section>
