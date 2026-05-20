@@ -540,48 +540,33 @@
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
 
-        // Continuous autoscroll (smooth) using requestAnimationFrame
-        let autoRaf = null;
-        let lastTs = null;
+        // Autoscroll logic
+        let autoId = null;
         let isInteracting = false;
-        const speed = 120; // pixels per second (adjust for faster/slower)
-
-        function loop(ts) {
-          if (lastTs === null) lastTs = ts;
-          const dt = (ts - lastTs) / 1000;
-          lastTs = ts;
-          if (!isInteracting) {
-            // advance scroll
-            slider.scrollLeft += speed * dt;
-            // loop back to start when reaching end
-            if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 1) {
-              // smoothly jump back by resetting lastTs to avoid big jump next frame
-              slider.scrollLeft = 0;
-            }
-          }
-          autoRaf = requestAnimationFrame(loop);
-        }
-
+        const interval = 3000;
         function startAuto() {
-          if (autoRaf) return;
-          lastTs = null;
-          autoRaf = requestAnimationFrame(loop);
+          if (autoId) return;
+          autoId = setInterval(() => {
+            if (isInteracting) return;
+            const slide = slider.querySelector('.slide');
+            if (!slide) return;
+            const step = slider.clientWidth;
+            if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+              slider.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+              slider.scrollBy({ left: step, behavior: 'smooth' });
+            }
+          }, interval);
         }
         function stopAuto() {
-          if (!autoRaf) return;
-          cancelAnimationFrame(autoRaf);
-          autoRaf = null;
-          lastTs = null;
+          if (autoId) { clearInterval(autoId); autoId = null; }
         }
-
         slider.addEventListener('pointerdown', () => { isInteracting = true; stopAuto(); });
         slider.addEventListener('pointerup', () => { isInteracting = false; startAuto(); });
-        slider.addEventListener('pointercancel', () => { isInteracting = false; startAuto(); });
         slider.addEventListener('mouseenter', () => { isInteracting = true; stopAuto(); });
         slider.addEventListener('mouseleave', () => { isInteracting = false; startAuto(); });
-        slider.addEventListener('wheel', () => { isInteracting = true; stopAuto(); setTimeout(() => { isInteracting = false; startAuto(); }, 1200); });
+        slider.addEventListener('wheel', () => { isInteracting = true; stopAuto(); setTimeout(() => { isInteracting = false; startAuto(); }, 1500); });
 
-        // start continuous autoscroll
         startAuto();
       })();
     </script>
