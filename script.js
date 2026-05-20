@@ -519,3 +519,54 @@ function fixYouTubePosterFallbacks() {
     } catch (e) {}
   });
 }
+
+// Close any open modal when a "Start a project" link is clicked so the contact section is visible
+document.addEventListener('click', function (e) {
+  var link = e.target.closest && e.target.closest('a[href="#contact"]');
+  if (!link) return;
+
+  // Close service modal
+  try {
+    var serviceModal = document.getElementById('service-modal');
+    if (serviceModal && !serviceModal.hasAttribute('hidden')) {
+      serviceModal.setAttribute('hidden', '');
+      var titleEl = document.getElementById('service-modal-title');
+      var bodyEl = document.getElementById('service-modal-body');
+      if (titleEl) titleEl.textContent = '';
+      if (bodyEl) bodyEl.innerHTML = '';
+    }
+  } catch (err) {}
+
+  // Close stills modal
+  try {
+    var stillsModal = document.getElementById('stills-modal');
+    var stillsImg = document.getElementById('stills-modal-img');
+    if (stillsModal && !stillsModal.hasAttribute('hidden')) {
+      stillsModal.setAttribute('hidden', '');
+      if (stillsImg) { stillsImg.src = ''; stillsImg.alt = ''; }
+    }
+  } catch (err) {}
+
+  // Close image-modal (the JS lightbox)
+  try {
+    var imageModal = document.getElementById('image-modal');
+    var imageModalImg = document.getElementById('image-modal-img');
+    if (imageModal && imageModal.classList && imageModal.classList.contains('open')) {
+      imageModal.classList.remove('open');
+      imageModal.setAttribute('aria-hidden', 'true');
+      if (imageModalImg) imageModalImg.src = '';
+    }
+  } catch (err) {}
+
+  // Restore scrolling if previously disabled by modals
+  try {
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+  } catch (err) {}
+
+  // Smooth scroll to contact after short delay to allow modals to close
+  setTimeout(function () {
+    var target = document.querySelector('#contact');
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  }, 120);
+});
