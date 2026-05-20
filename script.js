@@ -525,6 +525,9 @@ document.addEventListener('click', function (e) {
   var link = e.target.closest && e.target.closest('a[href="#contact"]');
   if (!link) return;
 
+  // prevent default navigation so we can close modals first
+  try { e.preventDefault(); } catch (err) {}
+
   // Close service modal
   try {
     var serviceModal = document.getElementById('service-modal');
@@ -564,9 +567,12 @@ document.addEventListener('click', function (e) {
     document.body.style.overflow = '';
   } catch (err) {}
 
-  // Smooth scroll to contact after short delay to allow modals to close
+  // Smooth scroll to contact after short delay to allow modals to close, and update hash
   setTimeout(function () {
     var target = document.querySelector('#contact');
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+      try { history.replaceState && history.replaceState(null, '', '#contact'); } catch (err) {}
+    }
   }, 120);
 });
