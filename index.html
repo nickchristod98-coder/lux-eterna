@@ -134,10 +134,15 @@
               overflow-x: auto;
               overflow-y: hidden;
               -webkit-overflow-scrolling: touch;
+              scroll-behavior: smooth;
+              touch-action: pan-y;
               display: flex;
               gap: 32px;
               padding: 32px 16px;
               scroll-snap-type: x mandatory;
+              will-change: transform;
+              transform: translateZ(0);
+              -webkit-transform: translateZ(0);
             }
             .slider-window::-webkit-scrollbar { height: 10px; display: none; }
 
@@ -540,10 +545,12 @@
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
 
-        // Autoscroll logic
+        // Autoscroll logic with robust pause-on-interaction and snap handling
         let autoId = null;
         let isInteracting = false;
+        let interactionTimeout = null;
         const interval = 3000;
+
         function startAuto() {
           if (autoId) return;
           autoId = setInterval(() => {
@@ -561,12 +568,65 @@
         function stopAuto() {
           if (autoId) { clearInterval(autoId); autoId = null; }
         }
-        slider.addEventListener('pointerdown', () => { isInteracting = true; stopAuto(); });
-        slider.addEventListener('pointerup', () => { isInteracting = false; startAuto(); });
-        slider.addEventListener('mouseenter', () => { isInteracting = true; stopAuto(); });
-        slider.addEventListener('mouseleave', () => { isInteracting = false; startAuto(); });
-        slider.addEventListener('wheel', () => { isInteracting = true; stopAuto(); setTimeout(() => { isInteracting = false; startAuto(); }, 1500); });
 
+        // Temporarily disable snap while user is actively dragging to avoid jumpiness
+        function setDraggingState(active) {
+          isInteracting = active;
+          if (active) {
+            // disable snap so user has full control
+            slider.style.scrollSnapType = 'none';
+            stopAuto();
+            if (interactionTimeout) { clearTimeout(interactionTimeout); interactionTimeout = null; }
+          } else {
+            // restore snap after a short delay to let momentum settle
+            setTimeout(function () {
+              slider.style.scrollSnapType = 'x mandatory';
+            }, 220);
+            // resume autoplay after brief idle
+            if (interactionTimeout) clearTimeout(interactionTimeout);
+            interactionTimeout = setTimeout(function () {
+              isInteracting = false;
+              startAuto();
+            }, 800);
+          }
+        }
+
+        slider.addEventListener('pointerdown', function (e) {
+          // user started interaction
+          setDraggingState(true);
+        }, { passive: true });
+
+        slider.addEventListener('pointermove', function (e) {
+          // keep dragging state while pointer moves
+          if (e.buttons) setDraggingState(true);
+        }, { passive: true });
+
+        slider.addEventListener('pointerup', function () {
+          setDraggingState(false);
+        });
+        slider.addEventListener('pointercancel', function () {
+          setDraggingState(false);
+        });
+        slider.addEventListener('mouseenter', function () {
+          setDraggingState(true);
+        });
+        slider.addEventListener('mouseleave', function () {
+          setDraggingState(false);
+        });
+
+        // touchstart/touchend fallback
+        slider.addEventListener('touchstart', function () { setDraggingState(true); }, { passive: true });
+        slider.addEventListener('touchend', function () { setDraggingState(false); }, { passive: true });
+
+        // wheel interactions pause autoplay and resume after short idle
+        let wheelTimeout = null;
+        slider.addEventListener('wheel', function () {
+          setDraggingState(true);
+          if (wheelTimeout) clearTimeout(wheelTimeout);
+          wheelTimeout = setTimeout(function () { setDraggingState(false); }, 600);
+        }, { passive: true });
+
+        // start autoplay
         startAuto();
       })();
     </script>
