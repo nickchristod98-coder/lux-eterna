@@ -519,3 +519,54 @@ function fixYouTubePosterFallbacks() {
     } catch (e) {}
   });
 }
+
+// Close any open modal when user clicks a "Start a project" anchor so the contact section is visible
+document.addEventListener('click', function (e) {
+  const link = e.target.closest && e.target.closest('a[href="#contact"]');
+  if (!link) return;
+
+  // Close service modal
+  try {
+    const serviceModal = document.getElementById('service-modal');
+    if (serviceModal && !serviceModal.hasAttribute('hidden')) {
+      serviceModal.setAttribute('hidden', '');
+      const titleEl = document.getElementById('service-modal-title');
+      const bodyEl = document.getElementById('service-modal-body');
+      if (titleEl) titleEl.textContent = '';
+      if (bodyEl) bodyEl.innerHTML = '';
+    }
+  } catch (err) {}
+
+  // Close stills modal
+  try {
+    const stillsModal = document.getElementById('stills-modal');
+    const stillsImg = document.getElementById('stills-modal-img');
+    if (stillsModal && !stillsModal.hasAttribute('hidden')) {
+      stillsModal.setAttribute('hidden', '');
+      if (stillsImg) { stillsImg.src = ''; stillsImg.alt = ''; }
+    }
+  } catch (err) {}
+
+  // Close image-modal (the JS lightbox)
+  try {
+    const imageModal = document.getElementById('image-modal');
+    const imageModalImg = document.getElementById('image-modal-img');
+    if (imageModal && imageModal.classList.contains('open')) {
+      imageModal.classList.remove('open');
+      imageModal.setAttribute('aria-hidden', 'true');
+      if (imageModalImg) imageModalImg.src = '';
+    }
+  } catch (err) {}
+
+  // Restore scrolling if previously disabled by modals
+  try {
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+  } catch (err) {}
+
+  // allow the anchor's default behavior (navigate to #contact); but ensure the page scrolls after modals closed
+  setTimeout(function () {
+    const target = document.querySelector('#contact');
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  }, 160);
+});
