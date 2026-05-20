@@ -127,61 +127,124 @@
             <h2 id="work-heading">Work</h2>
           </header>
 
-          <!-- New robust static collage (replaces slider) -->
-          <section class="w-full max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center" aria-labelledby="work-heading">
-            <div class="flex flex-col lg:flex-row gap-8 items-start justify-center max-w-[1200px] mx-auto">
-              <!-- LEFT GRID (Dark / Surfing) -->
-              <div class="lg:col-span-5 grid grid-cols-2 gap-3 bg-slate-900 p-4 rounded-3xl">
-                <!-- Top Left: portrait -->
-                <div class="overflow-hidden rounded-2xl">
-                  <img src="./Images/Stills/A7305995.jpg" alt="Portrait" class="w-full aspect-[3/4] object-cover rounded-2xl" />
-                </div>
-                <!-- Top Right: wave landscape -->
-                <div class="overflow-hidden rounded-2xl">
-                  <img src="./Images/Stills/A7306150.jpg" alt="Wave" class="w-full aspect-square object-cover rounded-2xl" />
-                </div>
-                <!-- Bottom Left: large horizontal spanning two cols -->
-                <div class="col-span-2 overflow-hidden rounded-2xl">
-                  <img src="./Images/Stills/A7306302.jpg" alt="Ocean wide 1" class="w-full aspect-[4/3] object-cover rounded-2xl" />
-                </div>
-                <!-- Bottom Right: narrow vertical -->
-                <div class="overflow-hidden rounded-2xl">
-                  <img src="./Images/Stills/A7308436.jpg" alt="Ocean texture" class="w-full aspect-[3/4] object-cover rounded-2xl" />
-                </div>
-              </div>
+          <!-- Horizontal slider: split images into two distinct panels and add click-to-enlarge modal -->
+          <style>
+            /* Slider window (horizontal scroll + snap) */
+            .slider-window {
+              overflow-x: auto;
+              overflow-y: hidden;
+              -webkit-overflow-scrolling: touch;
+              display: flex;
+              gap: 32px;
+              padding: 32px 16px;
+              scroll-snap-type: x mandatory;
+            }
+            .slider-window::-webkit-scrollbar { height: 10px; display: none; }
 
-              <!-- RIGHT GRID (Light / Wedding) -->
-              <div class="lg:col-span-7 grid grid-cols-2 gap-3 bg-white p-4 rounded-3xl shadow-xl lg:-ml-12 lg:z-10 relative">
-                <!-- Row1: two vertical portraits -->
-                <div class="overflow-hidden rounded-2xl">
-                  <img src="./Images/Stills/A7308480.jpg" alt="Wedding vert 1" class="w-full aspect-[4/5] object-cover rounded-2xl" />
-                </div>
-                <div class="overflow-hidden rounded-2xl">
-                  <img src="./Images/Stills/A7400844.jpg" alt="Wedding vert 2" class="w-full aspect-[4/5] object-cover rounded-2xl" />
+            /* Individual slide (holds a full collage grid) */
+            .slide {
+              flex: 0 0 85vw;
+              min-width: 85vw;
+              scroll-snap-align: start;
+              background: transparent;
+            }
+            @media (min-width: 600px) { .slide { min-width: 600px; } }
+            @media (min-width: 1024px) { .slide { min-width: 800px; } }
+
+            /* Work grid inside each slide */
+            .work-grid {
+              display: grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap: 16px;
+              width: 100%;
+            }
+            @media (min-width: 640px) { .work-grid { grid-template-columns: repeat(3, 1fr); } }
+            @media (min-width: 1024px) { .work-grid { grid-template-columns: repeat(4, 1fr); } }
+            .work-grid .tile { overflow: hidden; border-radius: 12px; height: 200px; }
+            @media (min-width: 640px) { .work-grid .tile { height: 220px; } }
+            @media (min-width: 1024px) { .work-grid .tile { height: 260px; } }
+            .work-grid img { width: 100%; height: 100%; object-fit: cover; display: block; cursor: zoom-in; transition: opacity 160ms ease; }
+            .work-grid img.enlargeable { cursor: pointer; }
+            .work-grid .panorama { grid-column: 1 / -1; height: 320px; }
+            @media (min-width: 1024px) { .work-grid .panorama { height: 420px; } }
+
+            /* Modal styles */
+            .image-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.8); z-index: 9999; padding: 24px; }
+            .image-modal.open { display: flex; }
+            .image-modal .modal-inner { position: relative; max-width: 1024px; max-height: 90vh; }
+            .image-modal img { max-width: 100%; max-height: 85vh; border-radius: 10px; object-fit: contain; display: block; }
+            .image-modal .close-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: #fff; width: 40px; height: 40px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 20px; border: none; cursor: pointer; }
+          </style>
+
+          <section aria-labelledby="work-heading" style="padding:0 0 48px 0;">
+            <div style="width:100%;overflow:hidden;">
+              <div class="slider-window" role="list">
+                <!-- Slide 1: images index 0-3 -->
+                <div class="slide" role="group" aria-label="Gallery panel 1">
+                  <div class="work-grid" role="list">
+                    <div class="tile" role="listitem"><img data-src="./images/stills/A7305995.jpg" src="./images/stills/A7305995.jpg" alt="Portrait" class="enlargeable" /></div>
+                    <div class="tile" role="listitem"><img data-src="./images/stills/A7306150.jpg" src="./images/stills/A7306150.jpg" alt="Wave" class="enlargeable" /></div>
+                    <div class="tile" role="listitem"><img data-src="./images/stills/A7306302.jpg" src="./images/stills/A7306302.jpg" alt="Ocean wide" class="enlargeable" /></div>
+                    <div class="tile" role="listitem"><img data-src="./images/stills/A7308436.jpg" src="./images/stills/A7308436.jpg" alt="Texture" class="enlargeable" /></div>
+                  </div>
                 </div>
 
-                <!-- Row2: 40/60 split -->
-                <div class="overflow-hidden rounded-2xl">
-                  <img src="./Images/Stills/A7402945.jpg" alt="Detail shot" class="w-full aspect-[3/4] object-cover rounded-2xl" />
-                </div>
-                <div class="overflow-hidden rounded-2xl">
-                  <img src="./Images/Stills/A7404555.jpg" alt="Couple on stairs" class="w-full aspect-[4/5] object-cover rounded-2xl" />
-                </div>
+                <!-- Slide 2: images index 4-8 -->
+                <div class="slide" role="group" aria-label="Gallery panel 2">
+                  <div class="work-grid" role="list">
+                    <div class="tile" role="listitem"><img data-src="./images/stills/A7308480.jpg" src="./images/stills/A7308480.jpg" alt="Wedding vert 1" class="enlargeable" /></div>
+                    <div class="tile" role="listitem"><img data-src="./images/stills/A7400844.jpg" src="./images/stills/A7400844.jpg" alt="Wedding vert 2" class="enlargeable" /></div>
+                    <div class="tile" role="listitem"><img data-src="./images/stills/A7402945.jpg" src="./images/stills/A7402945.jpg" alt="Detail shot" class="enlargeable" /></div>
+                    <div class="tile" role="listitem"><img data-src="./images/stills/A7404555.jpg" src="./images/stills/A7404555.jpg" alt="Couple on stairs" class="enlargeable" /></div>
 
-                <!-- Row3: full-width landscape -->
-                <div class="col-span-2 overflow-hidden rounded-2xl">
-                  <img src="./Images/Stills/A7404572.jpg" alt="Panorama" class="w-full aspect-[16/9] h-48 md:h-72 object-cover rounded-2xl" />
-                </div>
-
-                <!-- three swatches absolutely positioned -->
-                <div class="absolute left-1/2 transform -translate-x-1/2 -translate-y-8 flex gap-3 pointer-events-none">
-                  <span class="w-10 h-10 rounded-full bg-[#9dbb9a] shadow-lg ring-4 ring-white/80"></span>
-                  <span class="w-10 h-10 rounded-full bg-[#f6c6aa] shadow-lg ring-4 ring-white/80 -translate-x-2"></span>
-                  <span class="w-10 h-10 rounded-full bg-[#d6a85a] shadow-lg ring-4 ring-white/80 -translate-x-4"></span>
+                    <div class="panorama" role="listitem"><img data-src="./images/stills/A7404572.jpg" src="./images/stills/A7404572.jpg" alt="Panorama" class="enlargeable" /></div>
+                  </div>
                 </div>
               </div>
             </div>
           </section>
+
+          <!-- Image lightbox modal (vanilla JS) -->
+          <div id="image-modal" class="image-modal" aria-hidden="true">
+            <div class="modal-inner" role="document">
+              <button class="close-btn" aria-label="Close image" id="image-modal-close">✕</button>
+              <img id="image-modal-img" src="" alt="Enlarged view" />
+            </div>
+          </div>
+
+          <script>
+            (function () {
+              const modal = document.getElementById('image-modal');
+              const modalImg = document.getElementById('image-modal-img');
+              const closeBtn = document.getElementById('image-modal-close');
+              function openModal(src, alt) {
+                modalImg.src = src;
+                modalImg.alt = alt || '';
+                modal.classList.add('open');
+                modal.setAttribute('aria-hidden', 'false');
+              }
+              function closeModal() {
+                modal.classList.remove('open');
+                modal.setAttribute('aria-hidden', 'true');
+                modalImg.src = '';
+              }
+              document.querySelectorAll('.work-grid img.enlargeable').forEach(img => {
+                img.addEventListener('click', (e) => {
+                  openModal(img.dataset.src || img.src, img.alt);
+                });
+                img.style.cursor = 'pointer';
+                img.addEventListener('mouseenter', () => img.style.opacity = '0.92');
+                img.addEventListener('mouseleave', () => img.style.opacity = '1');
+              });
+              closeBtn.addEventListener('click', closeModal);
+              modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+              });
+              document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+              });
+            })();
+          </script>
 
           <div class="work-solo reveal">
             <div class="work-solo-head">
@@ -345,6 +408,168 @@
       </div>
     </div>
 
+    <script>
+      // Build slides dynamically from existing work-grid images and autoscroll
+      (function () {
+        const slider = document.querySelector('.slider-window');
+        if (!slider) return;
+
+        // Use explicit image list from local folder (images/stills/)
+        const images = [
+          './images/stills/A7305995.jpg',
+          './images/stills/A7306150.jpg',
+          './images/stills/A7306302.jpg',
+          './images/stills/A7308436.jpg',
+          './images/stills/A7308480.jpg',
+          './images/stills/A7400844.jpg',
+          './images/stills/A7402945.jpg',
+          './images/stills/A7404555.jpg',
+          './images/stills/A7404572.jpg',
+          './images/stills/A7404576.jpg',
+          './images/stills/A7404643.jpg',
+          './images/stills/A7404884.jpg',
+          './images/stills/A7405069.jpg',
+          './images/stills/A7405076.jpg',
+          './images/stills/A7405223.jpg',
+          './images/stills/A7405408.jpg',
+          './images/stills/A7405533.jpg',
+          './images/stills/A7405583.jpg',
+          './images/stills/A7405601.jpg',
+          './images/stills/A7405615.jpg',
+          './images/stills/A7405629.jpg',
+          './images/stills/A7405640.jpg',
+          './images/stills/A7405684.jpg',
+          './images/stills/A7405712.jpg',
+          './images/stills/A7405717.jpg',
+          './images/stills/A7406091.jpg',
+          './images/stills/A7406212.jpg',
+          './images/stills/A7406301.jpg',
+          './images/stills/A7406696.jpg',
+          './images/stills/A7407056.jpg',
+          './images/stills/A7407113.jpg',
+          './images/stills/A7407139.jpg',
+          './images/stills/A7407153.jpg',
+          './images/stills/A7407167.jpg',
+          './images/stills/A7409413.jpg',
+          './images/stills/A7V02106.jpg',
+          './images/stills/A7V02121.jpg',
+          './images/stills/A7V02125.jpg',
+          './images/stills/A7V02136.jpg',
+          './images/stills/A7V02192.jpg',
+          './images/stills/A7V04088.jpg',
+          './images/stills/A7V04367.jpg',
+          './images/stills/A7V05084.jpg'
+        ];
+        if (images.length === 0) return;
+
+        // Decide slides count (target ~6 items per slide, adjust to distribute evenly)
+        let per = 6;
+        let slidesCount = Math.max(1, Math.min(4, Math.ceil(images.length / per)));
+        // Rebalance if last slide would be very small
+        while (slidesCount > 1 && images.length / slidesCount < 3) slidesCount--;
+
+        const base = Math.floor(images.length / slidesCount);
+        let rem = images.length % slidesCount;
+        let idx = 0;
+
+        slider.innerHTML = '';
+
+        for (let s = 0; s < slidesCount; s++) {
+          const size = base + (rem > 0 ? 1 : 0);
+          if (rem > 0) rem--;
+          const slide = document.createElement('div');
+          slide.className = 'slide';
+          slide.setAttribute('role', 'group');
+          slide.setAttribute('aria-label', `Gallery panel ${s + 1}`);
+
+          const grid = document.createElement('div');
+          grid.className = 'work-grid';
+          grid.setAttribute('role', 'list');
+
+          for (let i = 0; i < size && idx < images.length; i++, idx++) {
+            const tile = document.createElement('div');
+            tile.className = 'tile';
+            tile.setAttribute('role', 'listitem');
+            const img = document.createElement('img');
+            img.src = images[idx];
+            img.dataset.src = images[idx];
+            img.alt = '';
+            img.className = 'enlargeable';
+            tile.appendChild(img);
+            grid.appendChild(tile);
+          }
+
+          // If this slide has fewer items than a full grid, fill remaining tiles with repeats (to avoid empty gaps)
+          const expected = Math.max(4, base + (rem > 0 ? 1 : 0));
+          while (grid.children.length < expected && images.length > 0) {
+            const fillerSrc = images[(idx) % images.length];
+            const tile = document.createElement('div');
+            tile.className = 'tile';
+            tile.innerHTML = `<img src="${fillerSrc}" data-src="${fillerSrc}" alt="" class="enlargeable">`;
+            grid.appendChild(tile);
+            idx++;
+          }
+
+          slide.appendChild(grid);
+          slider.appendChild(slide);
+        }
+
+        // Rewire modal behavior for newly created images
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('image-modal-img');
+        const closeBtn = document.getElementById('image-modal-close');
+        function openModal(src, alt) {
+          modalImg.src = src;
+          modalImg.alt = alt || '';
+          modal.classList.add('open');
+          modal.setAttribute('aria-hidden', 'false');
+        }
+        function closeModal() {
+          modal.classList.remove('open');
+          modal.setAttribute('aria-hidden', 'true');
+          modalImg.src = '';
+        }
+
+        slider.querySelectorAll('img.enlargeable').forEach(img => {
+          img.addEventListener('click', () => openModal(img.dataset.src || img.src, img.alt));
+          img.style.cursor = 'pointer';
+          img.addEventListener('mouseenter', () => img.style.opacity = '0.92');
+          img.addEventListener('mouseleave', () => img.style.opacity = '1');
+        });
+        closeBtn.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+        // Autoscroll logic
+        let autoId = null;
+        let isInteracting = false;
+        const interval = 3000;
+        function startAuto() {
+          if (autoId) return;
+          autoId = setInterval(() => {
+            if (isInteracting) return;
+            const slide = slider.querySelector('.slide');
+            if (!slide) return;
+            const step = slider.clientWidth;
+            if (slider.scrollLeft + slider.clientWidth >= slider.scrollWidth - 10) {
+              slider.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+              slider.scrollBy({ left: step, behavior: 'smooth' });
+            }
+          }, interval);
+        }
+        function stopAuto() {
+          if (autoId) { clearInterval(autoId); autoId = null; }
+        }
+        slider.addEventListener('pointerdown', () => { isInteracting = true; stopAuto(); });
+        slider.addEventListener('pointerup', () => { isInteracting = false; startAuto(); });
+        slider.addEventListener('mouseenter', () => { isInteracting = true; stopAuto(); });
+        slider.addEventListener('mouseleave', () => { isInteracting = false; startAuto(); });
+        slider.addEventListener('wheel', () => { isInteracting = true; stopAuto(); setTimeout(() => { isInteracting = false; startAuto(); }, 1500); });
+
+        startAuto();
+      })();
+    </script>
     <script src="script.js"></script>
   </body>
 </html>
