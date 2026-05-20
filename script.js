@@ -416,6 +416,24 @@ function initServiceModals() {
     document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
     if (closeBtn && typeof closeBtn.focus === "function") closeBtn.focus();
+    // Attach handler to any Start a project links inside the modal so they close it before navigating
+    try {
+      var localAnchors = modal.querySelectorAll('a[href="#contact"]');
+      localAnchors.forEach(function (a) {
+        // avoid double-binding
+        a.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          // close the modal first
+          close();
+          // then scroll to contact after short delay
+          setTimeout(function () {
+            var target = document.querySelector('#contact');
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+            try { history.replaceState && history.replaceState(null, '', '#contact'); } catch (e) {}
+          }, 120);
+        });
+      });
+    } catch (e) {}
   }
 
   function close() {
