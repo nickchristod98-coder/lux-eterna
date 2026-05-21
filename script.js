@@ -7,6 +7,98 @@
   if (yearEl) {
     yearEl.textContent = String(new Date().getFullYear());
   }
+  
+  // --- Internationalization: global app state + pub/sub ---
+  window.LuxApp = window.LuxApp || {};
+
+  window.LuxApp.translations = {
+    en: {
+      work: "Work",
+      services: "Services",
+      about: "About",
+      contact: "Contact",
+      start_project: "Start a project",
+      view_work: "View work",
+      hero_lede: "Cinematic motion and stills for stories that deserve permanence!  Commercials, film, documentary, and product worlds crafted with precision.",
+      get_in_touch: "Get in touch",
+      connect_with_us: "Connect with us",
+      about_lede: "We make cinematic work for brands and storytellers — grounded in craft, texture, and editorial patience.",
+      our_approach: "Our approach",
+      approach_para: "Lux Eterna blends a film-first discipline with commercial sensibilities. We lead productions with a director-plus-DP mindset, shaping image, motion and sound to serve story and emotion.",
+      meet_artists: "Meet the artists",
+      meet_artists_sub: "A small, tightly-knit team — each with craft-first experience.",
+      contact_lede: "Beyond email, here are the ways to reach Lux Eterna — pick what works best for your project, timeline, or pitch."
+    },
+    el: {
+      work: "Έργα",
+      services: "Υπηρεσίες",
+      about: "Σχετικά με εμάς",
+      contact: "Επικοινωνία",
+      start_project: "Ξεκινήστε ένα έργο",
+      view_work: "Δείτε έργα",
+      hero_lede: "Κινηματογραφική κίνηση και φωτογραφίες για ιστορίες που αξίζουν διαχρονία! Διαφημίσεις, ταινίες, ντοκιμαντέρ και προϊόντα δημιουργημένα με ακρίβεια.",
+      get_in_touch: "Επικοινωνήστε μαζί μας",
+      connect_with_us: "Επικοινωνήστε μαζί μας",
+      about_lede: "Δημιουργούμε κινηματογραφικά έργα για μάρκες και αφηγητές — βασισμένα στην τεχνική, την υφή και την επιμελημένη επεξεργασία.",
+      our_approach: "Η προσέγγισή μας",
+      approach_para: "Η Lux Eterna συνδυάζει μια ταινιογραφική προσέγγιση με εμπορική ευαισθησία. Η παραγωγή καθοδηγείται από μια συνεργασία σκηνοθέτη-διευθυντή φωτογραφίας για να διαμορφώσει εικόνα, κίνηση και ήχο.",
+      meet_artists: "Γνωρίστε τους καλλιτέχνες",
+      meet_artists_sub: "Μια μικρή, στενή ομάδα — ο καθένας με εμπειρία προσανατολισμένη στην τέχνη.",
+      contact_lede: "Πέρα από το email, εδώ είναι οι τρόποι για να επικοινωνήσετε με τη Lux Eterna — επιλέξτε αυτόν που ταιριάζει στο έργο και το χρονοδιάγραμμά σας."
+    }
+  };
+
+  window.LuxApp.language = localStorage.getItem("lang") || "en";
+  window.LuxApp._subscribers = [];
+
+  window.LuxApp.applyTranslations = function () {
+    var lang = window.LuxApp.language;
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n");
+      if (!key) return;
+      var txt = window.LuxApp.translations[lang] && window.LuxApp.translations[lang][key];
+      if (typeof txt === "string") {
+        el.textContent = txt;
+      }
+    });
+  };
+
+  window.LuxApp.updateLangButtons = function () {
+    document.querySelectorAll(".lang-toggle, .mobile-lang-toggle").forEach(function (btn) {
+      btn.textContent = "EN / EL";
+      btn.setAttribute("aria-pressed", String(window.LuxApp.language === "el"));
+    });
+  };
+
+  window.LuxApp.setLanguage = function (lang) {
+    if (!lang || window.LuxApp.language === lang) return;
+    window.LuxApp.language = lang;
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+    window.LuxApp.applyTranslations();
+    window.LuxApp.updateLangButtons();
+    window.LuxApp._subscribers.forEach(function (fn) {
+      try { fn(lang); } catch (e) {}
+    });
+    // ensure the document language attribute is updated for accessibility / assistive tech
+    try { document.documentElement.lang = lang; } catch (e) {}
+  };
+
+  window.LuxApp.toggleLanguage = function () {
+    window.LuxApp.setLanguage(window.LuxApp.language === "en" ? "el" : "en");
+  };
+
+  window.LuxApp.subscribe = function (fn) {
+    if (typeof fn !== "function") return function () {};
+    window.LuxApp._subscribers.push(fn);
+    return function unsubscribe() {
+      var i = window.LuxApp._subscribers.indexOf(fn);
+      if (i !== -1) window.LuxApp._subscribers.splice(i, 1);
+    };
+  };
+
+  // apply current language on load
+  window.LuxApp.applyTranslations();
+  window.LuxApp.updateLangButtons();
 
   function onScroll() {
     if (!header) return;

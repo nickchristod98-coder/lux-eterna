@@ -179,6 +179,8 @@ img {
   cursor: pointer;
 }
 
+/* language toggle styles removed */
+
 .nav-toggle span {
   display: block;
   height: 1px;
@@ -2147,4 +2149,28 @@ body::before {
         rgba(255, 255, 255, 0.5) 60%, 
         rgba(255, 255, 255, 1) 100%
     ) !important;
+}
+
+/* Sticky glass navbar override (enforces frosted glass header) */
+.site-header {
+  position: sticky !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50 !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+/* Final override (force sticky glass even after other resets) */
+.site-header, header.site-header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  background: rgba(255,255,255,0.72) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
 }
