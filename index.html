@@ -295,6 +295,94 @@
         </div>
       </section>
 
+      <!-- SHOT-DECK: full-width black band with centered content and single collage image -->
+      <style>
+        .shot-deck {
+          width: 100% !important;
+          background-color: #000 !important;
+          padding: 64px 0 !important;
+          box-sizing: border-box;
+          margin: 0;
+        }
+        .shot-deck-inner {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 24px;
+          text-align: center;
+        }
+        .shot-deck-title {
+          margin: 0;
+          font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+          text-transform: uppercase;
+          font-weight: 800;
+          color: #ffd400;
+          letter-spacing: 0.12em;
+          font-size: 1.125rem;
+        }
+        .shot-deck-sub {
+          display: block;
+          margin-top: 10px;
+          font-weight: 400;
+          color: #ffd400;
+          opacity: 0.95;
+          font-size: 0.95rem;
+        }
+        .shot-deck-grid {
+          /* Full-width breakout for the image */
+          position: relative;
+          left: 50%;
+          right: 50%;
+          margin-left: -50vw;
+          margin-right: -50vw;
+          width: 100vw;
+          box-sizing: border-box;
+          padding: 12px 24px;
+          display: flex;
+          justify-content: center;
+        }
+        .shot-deck-grid .tile img {
+          width: 100%;
+          max-width: 1600px;
+          height: auto;
+          object-fit: contain;
+          display: block;
+          border-radius: 6px;
+          background: #000;
+        }
+        @media (max-width: 720px) {
+          .shot-deck-grid { padding: 8px 12px; }
+          .shot-deck-grid .tile img { border-radius: 4px; }
+        }
+      </style>
+
+      <section class="shot-deck" aria-labelledby="shot-deck-heading">
+        <div class="shot-deck-inner">
+          <h3 id="shot-deck-heading" class="shot-deck-title">SHOT-DECK</h3>
+          <p class="shot-deck-sub">A glimpse into our worlds</p>
+        </div>
+
+        <div class="shot-deck-grid" id="shot-deck-grid" role="list" aria-label="Shot deck image">
+          <!-- populated by script -->
+        </div>
+      </section>
+
+      <script>
+        (function () {
+          const src = './screenshots/scrennshots_grid.png';
+          const grid = document.getElementById('shot-deck-grid');
+          if (!grid) return;
+          grid.innerHTML = '';
+          const tile = document.createElement('div');
+          tile.className = 'tile';
+          const img = document.createElement('img');
+          img.src = encodeURI(src);
+          img.alt = 'Shot deck collage';
+          img.loading = 'lazy';
+          tile.appendChild(img);
+          grid.appendChild(tile);
+        })();
+      </script>
+
       <section class="services" id="services">
         <div class="section-head reveal">
           <h2>Services</h2>
