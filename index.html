@@ -210,6 +210,8 @@
           </section>
 
           <!-- Image lightbox modal (vanilla JS) -->
+          
+
           <div id="image-modal" class="image-modal" aria-hidden="true">
             <div class="modal-inner" role="document">
               <button class="close-btn" aria-label="Close image" id="image-modal-close">✕</button>
@@ -293,6 +295,97 @@
             <!-- fallback link removed per request -->
           </div>
         </div>
+      </section>
+
+      <!-- SHOT-DECK: clean full-width black band with centered inner content -->
+      <style>
+        /* Outermost wrapper: full-width black band (override site resets) */
+        .shot-deck {
+          width: 100% !important;
+          background-color: #000000 !important;
+          padding: 64px 0 !important;
+          box-sizing: border-box;
+          margin: 0;
+        }
+        /* Inner content wrapper: constrained and centered */
+        .shot-deck-inner {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 24px;
+          text-align: center;
+        }
+        .shot-deck-title {
+          margin: 0;
+          font-family: "Outfit", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+          text-transform: uppercase;
+          font-weight: 800;
+          color: #ffd400;
+          letter-spacing: 0.12em;
+          font-size: 1.125rem;
+        }
+        .shot-deck-sub {
+          display: block;
+          margin-top: 10px;
+          font-weight: 400;
+          color: #ffd400;
+          opacity: 0.95;
+          font-size: 0.95rem;
+        }
+        .shot-deck-image {
+          margin-top: 28px;
+          display: flex;
+          justify-content: center;
+        }
+        .shot-deck-image img {
+          width: 80%;
+          max-width: 900px;
+          height: auto;
+          display: block;
+          border-radius: 6px;
+        }
+        @media (max-width: 720px) {
+          .shot-deck-image img { width: 100%; max-width: 100%; border-radius: 4px; }
+        }
+        /* Full-width grid that breaks out to the viewport edges */
+        .shot-deck-grid {
+          position: relative;
+          left: 50%;
+          right: 50%;
+          margin-left: -50vw;
+          margin-right: -50vw;
+          width: 100vw;
+          box-sizing: border-box;
+          padding: 12px 24px; /* small horizontal gutter */
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 12px;
+          align-items: center;
+          grid-auto-rows: auto;
+        }
+        .shot-deck-grid .tile {
+          display: block;
+        }
+        .shot-deck-grid .tile img {
+          width: 100%;
+          height: auto;
+          object-fit: contain;
+          display: block;
+          border-radius: 6px;
+          background: #000;
+        }
+        @media (max-width: 900px) {
+          .shot-deck-grid .tile img { border-radius: 4px; }
+        }
+      </style>
+
+      <section class="shot-deck" aria-labelledby="shot-deck-heading">
+        <div class="shot-deck-inner">
+          <h3 id="shot-deck-heading" class="shot-deck-title">SHOT-DECK</h3>
+          <p class="shot-deck-sub">A glimpse into our worlds</p>
+        </div>
+
+        <!-- Full-width image grid that breaks out of the centered container -->
+        <div class="shot-deck-grid" id="shot-deck-grid" role="list" aria-label="Shot deck images"></div>
       </section>
 
       <section class="services" id="services">
@@ -630,6 +723,24 @@
         startAuto();
       })();
     </script>
+  <script>
+    // Populate the shot-deck with the single collage image provided
+    (function () {
+      const src = './screenshots/scrennshots_grid.png';
+      const grid = document.getElementById('shot-deck-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const tile = document.createElement('div');
+      tile.className = 'tile';
+      const img = document.createElement('img');
+      img.src = encodeURI(src);
+      img.alt = 'Shot deck collage';
+      img.loading = 'lazy';
+      tile.appendChild(img);
+      grid.appendChild(tile);
+    })();
+  </script>
+    <!-- shot-deck grid removed — section displays only the single screenshots_grid.jpg image -->
     <script src="script.js"></script>
   </body>
 </html>
